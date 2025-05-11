@@ -4,7 +4,7 @@ We sincerely thank the reviewers for their time and contributions during the rev
 
 ## Quick reproducibility check
 
-To facilitate a quick verification of the reproducibility of our results during the review process, we provide the logs of training CROSS in ```./CROSS/logs/```, which contains the main experimental results and other details. Please feel free to review them.
+To facilitate a quick verification of the reproducibility of our results during the review process, we provide the logs of training CROSS in ```./logs/```, which contains the main experimental results and other details. Please feel free to review them.
 
 ## How to run
 
