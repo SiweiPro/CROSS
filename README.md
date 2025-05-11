@@ -53,4 +53,4 @@ CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name Enron --mo
 
 ## Acknowledge
 
-Codes and model implementations are referred to [DyGLib](https://github.com/yule-BUAA/DyGLib) and [DTGB](https://github.com/zjs123/DTGB) project. Thanks for their great contributions!
+Codes and model implementations are referred to [DTGB](https://github.com/zjs123/DTGB) and [DyGLib](https://github.com/yule-BUAA/DyGLib). Thanks for their great contributions!
