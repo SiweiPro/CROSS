@@ -1,0 +1,501 @@
+2024-11-12 02:18:53,814 - root - INFO - ********** Run 2 starts. **********
+2024-11-12 02:18:53,814 - root - INFO - configuration is Namespace(batch_size=256, channel_embedding_dim=50, code_path='.', dataset_name='ICEWS1819', device='cuda:0', dropout=0.1, edge_bank_memory_mode='unlimited_memory', gpu=0, learning_rate=0.0001, load_best_configs=True, max_input_sequence_length=32, model_name='DyGFormer', negative_sample_strategy='random', num_epochs=50, num_heads=2, num_layers=2, num_neighbors=20, num_runs=3, num_walk_heads=8, optimizer='Adam', patch_size=1, patience=5, position_feat_dim=384, sample_neighbor_strategy='recent', save_model_name='DyGFormer_seed1MiniLM', seed=1, temporal_chain_length=10, test_interval_epochs=10, test_ratio=0.2, time_dim=384, time_feat_dim=100, time_gap=2000, time_scaling_factor=1e-06, time_window_mode='fixed_proportion', train_LM='', use_feature='MiniLM', val_ratio=0.2, walk_length=1, weight_decay=0.0)
+2024-11-12 02:18:53,814 - root - INFO - node feature size (31797, 384)
+2024-11-12 02:18:53,814 - root - INFO - edge feature size (267, 384)
+2024-11-12 02:18:53,815 - root - INFO - node feature example [-0.04968665  0.08126714  0.00882058  0.00811328 -0.01529019]
+2024-11-12 02:18:53,815 - root - INFO - edge feature example [ 0.07841122 -0.01849676  0.0142727   0.01422792 -0.04077128]
+2024-11-12 02:18:53,872 - root - INFO - model -> Sequential(
+  (0): DyGFormer(
+    (temporal_chain): TemporalChain()
+    (time_encoder): TimeEncoder(
+      (w): Linear(in_features=1, out_features=100, bias=True)
+    )
+    (neighbor_co_occurrence_encoder): NeighborCooccurrenceEncoder(
+      (neighbor_co_occurrence_encode_layer): Sequential(
+        (0): Linear(in_features=1, out_features=50, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=50, out_features=50, bias=True)
+      )
+    )
+    (projection_layer): ModuleDict(
+      (node): Linear(in_features=384, out_features=50, bias=True)
+      (edge): Linear(in_features=384, out_features=50, bias=True)
+      (time): Linear(in_features=100, out_features=50, bias=True)
+      (neighbor_co_occurrence): Linear(in_features=50, out_features=50, bias=True)
+      (temporal_chain): Linear(in_features=484, out_features=200, bias=True)
+    )
+    (transformers): ModuleList(
+      (0-1): 2 x TransformerEncoder(
+        (multi_head_attention): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=200, out_features=200, bias=True)
+        )
+        (dropout): Dropout(p=0.1, inplace=False)
+        (linear_layers): ModuleList(
+          (0): Linear(in_features=200, out_features=800, bias=True)
+          (1): Linear(in_features=800, out_features=200, bias=True)
+        )
+        (norm_layers): ModuleList(
+          (0-1): 2 x LayerNorm((200,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+    (temporal_chain_encoder): TemporalChainEncoder(
+      (multi_head_attention): MultiheadAttention(
+        (out_proj): NonDynamicallyQuantizableLinear(in_features=200, out_features=200, bias=True)
+      )
+      (dropout): Dropout(p=0.1, inplace=False)
+      (linear_layers): ModuleList(
+        (0): Linear(in_features=200, out_features=400, bias=True)
+        (1): Linear(in_features=400, out_features=200, bias=True)
+      )
+      (norm_layers): ModuleList(
+        (0-1): 2 x LayerNorm((200,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+    (temporal_chain_fusion_layer): RawTemporalChainFusion4DyGFormer(
+      (fusion_layer): MergeLayer(
+        (fc1): Linear(in_features=400, out_features=400, bias=True)
+        (fc2): Linear(in_features=400, out_features=400, bias=True)
+        (act): ReLU()
+      )
+      (layer_norm): LayerNorm((200,), eps=1e-05, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (output_layer): ModuleDict(
+      (graph_modal): Linear(in_features=200, out_features=384, bias=True)
+      (text_modal): Linear(in_features=200, out_features=384, bias=True)
+    )
+    (merge_layer): MergeLayer(
+      (fc1): Linear(in_features=1168, out_features=384, bias=True)
+      (fc2): Linear(in_features=384, out_features=384, bias=True)
+      (act): ReLU()
+    )
+  )
+  (1): MergeLayer(
+    (fc1): Linear(in_features=768, out_features=384, bias=True)
+    (fc2): Linear(in_features=384, out_features=1, bias=True)
+    (act): ReLU()
+  )
+)
+2024-11-12 02:18:53,873 - root - INFO - model name: DyGFormer, #parameters: 11205340 B, 10942.71484375 KB, 10.68624496459961 MB.
+2024-11-12 02:21:30,391 - root - INFO - Epoch: 1, train for the 500-th batch, train loss: 0.28094255924224854
+2024-11-12 02:24:00,049 - root - INFO - Epoch: 1, train for the 1000-th batch, train loss: 0.2176913022994995
+2024-11-12 02:26:39,139 - root - INFO - Epoch: 1, train for the 1500-th batch, train loss: 0.2764784097671509
+2024-11-12 02:30:24,009 - root - INFO - Epoch: 2, train for the 500-th batch, train loss: 0.22534295916557312
+2024-11-12 02:32:53,076 - root - INFO - Epoch: 2, train for the 1000-th batch, train loss: 0.2043004333972931
+2024-11-12 02:35:23,419 - root - INFO - Epoch: 2, train for the 1500-th batch, train loss: 0.21745029091835022
+2024-11-12 02:38:56,742 - root - INFO - Epoch: 3, train for the 500-th batch, train loss: 0.16734442114830017
+2024-11-12 02:41:26,467 - root - INFO - Epoch: 3, train for the 1000-th batch, train loss: 0.1913539469242096
+2024-11-12 02:43:57,631 - root - INFO - Epoch: 3, train for the 1500-th batch, train loss: 0.1663665622472763
+2024-11-12 02:47:41,291 - root - INFO - Epoch: 4, train for the 500-th batch, train loss: 0.1687397062778473
+2024-11-12 02:50:11,914 - root - INFO - Epoch: 4, train for the 1000-th batch, train loss: 0.2003471702337265
+2024-11-12 02:52:45,313 - root - INFO - Epoch: 4, train for the 1500-th batch, train loss: 0.21544690430164337
+2024-11-12 02:56:34,666 - root - INFO - Epoch: 5, train for the 500-th batch, train loss: 0.18608303368091583
+2024-11-12 02:59:14,906 - root - INFO - Epoch: 5, train for the 1000-th batch, train loss: 0.13890232145786285
+2024-11-12 03:01:46,736 - root - INFO - Epoch: 5, train for the 1500-th batch, train loss: 0.1846635639667511
+2024-11-12 03:08:28,129 - root - INFO - Epoch: 5, learning rate: 0.0001, train loss: 0.1631
+2024-11-12 03:08:28,130 - root - INFO - train average_precision, 0.9849
+2024-11-12 03:08:28,130 - root - INFO - train roc_auc, 0.9826
+2024-11-12 03:08:28,131 - root - INFO - train MRR, 0.8348
+2024-11-12 03:08:28,132 - root - INFO - train NDGC@3, 0.9993
+2024-11-12 03:08:28,132 - root - INFO - train hit@10, 0.8893
+2024-11-12 03:08:28,132 - root - INFO - validate loss: 0.1222
+2024-11-12 03:08:28,133 - root - INFO - validate average_precision, 0.9916
+2024-11-12 03:08:28,133 - root - INFO - validate roc_auc, 0.9905
+2024-11-12 03:08:28,133 - root - INFO - validate MRR, 0.8856
+2024-11-12 03:08:28,133 - root - INFO - validate NDGC@3, 1.0000
+2024-11-12 03:08:28,134 - root - INFO - validate hit@10, 0.9315
+2024-11-12 03:08:28,134 - root - INFO - new node validate loss: 0.2124
+2024-11-12 03:08:28,134 - root - INFO - new node validate average_precision, 0.9783
+2024-11-12 03:08:28,134 - root - INFO - new node validate roc_auc, 0.9753
+2024-11-12 03:08:28,134 - root - INFO - new node validate MRR, 0.7842
+2024-11-12 03:08:28,134 - root - INFO - new node validate NDGC@3, 1.0000
+2024-11-12 03:08:28,134 - root - INFO - new node validate hit@10, 0.8382
+2024-11-12 03:08:28,135 - root - INFO - save model ./saved_models/DyGFormer/ICEWS1819/DyGFormer_seed1MiniLM/DyGFormer_seed1MiniLM_1731377933.pkl
+2024-11-12 03:10:53,701 - root - INFO - Epoch: 6, train for the 500-th batch, train loss: 0.19334857165813446
+2024-11-12 03:13:23,897 - root - INFO - Epoch: 6, train for the 1000-th batch, train loss: 0.131007120013237
+2024-11-12 03:15:54,109 - root - INFO - Epoch: 6, train for the 1500-th batch, train loss: 0.18068796396255493
+2024-11-12 03:19:28,373 - root - INFO - Epoch: 7, train for the 500-th batch, train loss: 0.1848604530096054
+2024-11-12 03:21:59,129 - root - INFO - Epoch: 7, train for the 1000-th batch, train loss: 0.16492515802383423
+2024-11-12 03:24:30,378 - root - INFO - Epoch: 7, train for the 1500-th batch, train loss: 0.18277114629745483
+2024-11-12 03:28:03,359 - root - INFO - Epoch: 8, train for the 500-th batch, train loss: 0.18454688787460327
+2024-11-12 03:30:35,820 - root - INFO - Epoch: 8, train for the 1000-th batch, train loss: 0.1407747119665146
+2024-11-12 03:33:10,850 - root - INFO - Epoch: 8, train for the 1500-th batch, train loss: 0.18993575870990753
+2024-11-12 03:36:53,126 - root - INFO - Epoch: 9, train for the 500-th batch, train loss: 0.16338419914245605
+2024-11-12 03:39:41,553 - root - INFO - Epoch: 9, train for the 1000-th batch, train loss: 0.14445878565311432
+2024-11-12 03:42:18,936 - root - INFO - Epoch: 9, train for the 1500-th batch, train loss: 0.19936363399028778
+2024-11-12 03:45:54,415 - root - INFO - Epoch: 10, train for the 500-th batch, train loss: 0.18228837847709656
+2024-11-12 03:48:35,672 - root - INFO - Epoch: 10, train for the 1000-th batch, train loss: 0.1316422075033188
+2024-11-12 03:51:14,682 - root - INFO - Epoch: 10, train for the 1500-th batch, train loss: 0.17611460387706757
+2024-11-12 03:57:16,615 - root - INFO - Epoch: 10, learning rate: 0.0001, train loss: 0.1444
+2024-11-12 03:57:16,617 - root - INFO - train average_precision, 0.9881
+2024-11-12 03:57:16,617 - root - INFO - train roc_auc, 0.9866
+2024-11-12 03:57:16,618 - root - INFO - train MRR, 0.8535
+2024-11-12 03:57:16,618 - root - INFO - train NDGC@3, 0.9993
+2024-11-12 03:57:16,619 - root - INFO - train hit@10, 0.9078
+2024-11-12 03:57:16,619 - root - INFO - validate loss: 0.1136
+2024-11-12 03:57:16,619 - root - INFO - validate average_precision, 0.9929
+2024-11-12 03:57:16,619 - root - INFO - validate roc_auc, 0.9922
+2024-11-12 03:57:16,620 - root - INFO - validate MRR, 0.8985
+2024-11-12 03:57:16,620 - root - INFO - validate NDGC@3, 0.9997
+2024-11-12 03:57:16,620 - root - INFO - validate hit@10, 0.9409
+2024-11-12 03:57:16,620 - root - INFO - new node validate loss: 0.1899
+2024-11-12 03:57:16,620 - root - INFO - new node validate average_precision, 0.9808
+2024-11-12 03:57:16,620 - root - INFO - new node validate roc_auc, 0.9784
+2024-11-12 03:57:16,621 - root - INFO - new node validate MRR, 0.8009
+2024-11-12 03:57:16,621 - root - INFO - new node validate NDGC@3, 1.0000
+2024-11-12 03:57:16,621 - root - INFO - new node validate hit@10, 0.8548
+2024-11-12 04:02:25,766 - root - INFO - test loss: 0.0980
+2024-11-12 04:02:25,767 - root - INFO - test average_precision, 0.9964
+2024-11-12 04:02:25,767 - root - INFO - test roc_auc, 0.9963
+2024-11-12 04:02:25,768 - root - INFO - test MRR, 0.9304
+2024-11-12 04:02:25,768 - root - INFO - test NDGC@3, 1.0000
+2024-11-12 04:02:25,768 - root - INFO - test hit@10, 0.9639
+2024-11-12 04:02:25,768 - root - INFO - new node test loss: 0.1633
+2024-11-12 04:02:25,769 - root - INFO - new node test average_precision, 0.9866
+2024-11-12 04:02:25,769 - root - INFO - new node test roc_auc, 0.9852
+2024-11-12 04:02:25,769 - root - INFO - new node test MRR, 0.8350
+2024-11-12 04:02:25,769 - root - INFO - new node test NDGC@3, 0.9993
+2024-11-12 04:02:25,769 - root - INFO - new node test hit@10, 0.8897
+2024-11-12 04:05:05,780 - root - INFO - Epoch: 11, train for the 500-th batch, train loss: 0.1603790521621704
+2024-11-12 04:07:34,768 - root - INFO - Epoch: 11, train for the 1000-th batch, train loss: 0.13926765322685242
+2024-11-12 04:10:05,072 - root - INFO - Epoch: 11, train for the 1500-th batch, train loss: 0.27382004261016846
+2024-11-12 04:13:43,384 - root - INFO - Epoch: 12, train for the 500-th batch, train loss: 0.1687312126159668
+2024-11-12 04:16:12,126 - root - INFO - Epoch: 12, train for the 1000-th batch, train loss: 0.16072344779968262
+2024-11-12 04:18:42,439 - root - INFO - Epoch: 12, train for the 1500-th batch, train loss: 0.19108946621418
+2024-11-12 04:22:35,778 - root - INFO - Epoch: 13, train for the 500-th batch, train loss: 0.16109436750411987
+2024-11-12 04:25:24,875 - root - INFO - Epoch: 13, train for the 1000-th batch, train loss: 0.13778798282146454
+2024-11-12 04:28:04,336 - root - INFO - Epoch: 13, train for the 1500-th batch, train loss: 0.2316291332244873
+2024-11-12 04:31:40,981 - root - INFO - Epoch: 14, train for the 500-th batch, train loss: 0.16585469245910645
+2024-11-12 04:34:09,713 - root - INFO - Epoch: 14, train for the 1000-th batch, train loss: 0.17222672700881958
+2024-11-12 04:36:40,633 - root - INFO - Epoch: 14, train for the 1500-th batch, train loss: 0.18177957832813263
+2024-11-12 04:40:14,558 - root - INFO - Epoch: 15, train for the 500-th batch, train loss: 0.15244349837303162
+2024-11-12 04:42:44,187 - root - INFO - Epoch: 15, train for the 1000-th batch, train loss: 0.1615881323814392
+2024-11-12 04:45:16,400 - root - INFO - Epoch: 15, train for the 1500-th batch, train loss: 0.1607922613620758
+2024-11-12 04:52:02,556 - root - INFO - Epoch: 15, learning rate: 0.0001, train loss: 0.1364
+2024-11-12 04:52:02,558 - root - INFO - train average_precision, 0.9892
+2024-11-12 04:52:02,558 - root - INFO - train roc_auc, 0.9881
+2024-11-12 04:52:02,559 - root - INFO - train MRR, 0.8584
+2024-11-12 04:52:02,559 - root - INFO - train NDGC@3, 0.9997
+2024-11-12 04:52:02,560 - root - INFO - train hit@10, 0.9142
+2024-11-12 04:52:02,560 - root - INFO - validate loss: 0.1066
+2024-11-12 04:52:02,560 - root - INFO - validate average_precision, 0.9937
+2024-11-12 04:52:02,561 - root - INFO - validate roc_auc, 0.9930
+2024-11-12 04:52:02,561 - root - INFO - validate MRR, 0.9061
+2024-11-12 04:52:02,561 - root - INFO - validate NDGC@3, 1.0000
+2024-11-12 04:52:02,561 - root - INFO - validate hit@10, 0.9456
+2024-11-12 04:52:02,561 - root - INFO - new node validate loss: 0.1930
+2024-11-12 04:52:02,562 - root - INFO - new node validate average_precision, 0.9818
+2024-11-12 04:52:02,562 - root - INFO - new node validate roc_auc, 0.9795
+2024-11-12 04:52:02,562 - root - INFO - new node validate MRR, 0.8119
+2024-11-12 04:52:02,562 - root - INFO - new node validate NDGC@3, 1.0000
+2024-11-12 04:52:02,562 - root - INFO - new node validate hit@10, 0.8640
+2024-11-12 04:52:02,563 - root - INFO - save model ./saved_models/DyGFormer/ICEWS1819/DyGFormer_seed1MiniLM/DyGFormer_seed1MiniLM_1731377933.pkl
+2024-11-12 04:54:35,542 - root - INFO - Epoch: 16, train for the 500-th batch, train loss: 0.1702769547700882
+2024-11-12 04:57:04,998 - root - INFO - Epoch: 16, train for the 1000-th batch, train loss: 0.1425882875919342
+2024-11-12 04:59:36,053 - root - INFO - Epoch: 16, train for the 1500-th batch, train loss: 0.18177568912506104
+2024-11-12 05:03:11,328 - root - INFO - Epoch: 17, train for the 500-th batch, train loss: 0.1479010134935379
+2024-11-12 05:05:43,141 - root - INFO - Epoch: 17, train for the 1000-th batch, train loss: 0.14828439056873322
+2024-11-12 05:08:14,676 - root - INFO - Epoch: 17, train for the 1500-th batch, train loss: 0.16805478930473328
+2024-11-12 05:11:50,528 - root - INFO - Epoch: 18, train for the 500-th batch, train loss: 0.18174418807029724
+2024-11-12 05:14:20,753 - root - INFO - Epoch: 18, train for the 1000-th batch, train loss: 0.15357330441474915
+2024-11-12 05:17:09,766 - root - INFO - Epoch: 18, train for the 1500-th batch, train loss: 0.1759815365076065
+2024-11-12 05:21:09,387 - root - INFO - Epoch: 19, train for the 500-th batch, train loss: 0.14938446879386902
+2024-11-12 05:23:51,998 - root - INFO - Epoch: 19, train for the 1000-th batch, train loss: 0.13194864988327026
+2024-11-12 05:26:41,367 - root - INFO - Epoch: 19, train for the 1500-th batch, train loss: 0.16280968487262726
+2024-11-12 05:30:43,383 - root - INFO - Epoch: 20, train for the 500-th batch, train loss: 0.14016608893871307
+2024-11-12 05:33:13,508 - root - INFO - Epoch: 20, train for the 1000-th batch, train loss: 0.1599046289920807
+2024-11-12 05:35:46,461 - root - INFO - Epoch: 20, train for the 1500-th batch, train loss: 0.16288770735263824
+2024-11-12 05:41:50,740 - root - INFO - Epoch: 20, learning rate: 0.0001, train loss: 0.1291
+2024-11-12 05:41:50,742 - root - INFO - train average_precision, 0.9903
+2024-11-12 05:41:50,742 - root - INFO - train roc_auc, 0.9895
+2024-11-12 05:41:50,743 - root - INFO - train MRR, 0.8607
+2024-11-12 05:41:50,743 - root - INFO - train NDGC@3, 0.9993
+2024-11-12 05:41:50,744 - root - INFO - train hit@10, 0.9194
+2024-11-12 05:41:50,744 - root - INFO - validate loss: 0.1155
+2024-11-12 05:41:50,744 - root - INFO - validate average_precision, 0.9932
+2024-11-12 05:41:50,745 - root - INFO - validate roc_auc, 0.9926
+2024-11-12 05:41:50,745 - root - INFO - validate MRR, 0.8990
+2024-11-12 05:41:50,745 - root - INFO - validate NDGC@3, 1.0000
+2024-11-12 05:41:50,745 - root - INFO - validate hit@10, 0.9410
+2024-11-12 05:41:50,745 - root - INFO - new node validate loss: 0.1864
+2024-11-12 05:41:50,746 - root - INFO - new node validate average_precision, 0.9817
+2024-11-12 05:41:50,746 - root - INFO - new node validate roc_auc, 0.9794
+2024-11-12 05:41:50,746 - root - INFO - new node validate MRR, 0.8078
+2024-11-12 05:41:50,746 - root - INFO - new node validate NDGC@3, 1.0000
+2024-11-12 05:41:50,746 - root - INFO - new node validate hit@10, 0.8586
+2024-11-12 05:47:27,676 - root - INFO - test loss: 0.1019
+2024-11-12 05:47:27,677 - root - INFO - test average_precision, 0.9965
+2024-11-12 05:47:27,677 - root - INFO - test roc_auc, 0.9962
+2024-11-12 05:47:27,678 - root - INFO - test MRR, 0.9324
+2024-11-12 05:47:27,678 - root - INFO - test NDGC@3, 1.0000
+2024-11-12 05:47:27,678 - root - INFO - test hit@10, 0.9668
+2024-11-12 05:47:27,679 - root - INFO - new node test loss: 0.1620
+2024-11-12 05:47:27,679 - root - INFO - new node test average_precision, 0.9872
+2024-11-12 05:47:27,679 - root - INFO - new node test roc_auc, 0.9859
+2024-11-12 05:47:27,679 - root - INFO - new node test MRR, 0.8393
+2024-11-12 05:47:27,679 - root - INFO - new node test NDGC@3, 1.0000
+2024-11-12 05:47:27,679 - root - INFO - new node test hit@10, 0.8957
+2024-11-12 05:50:12,825 - root - INFO - Epoch: 21, train for the 500-th batch, train loss: 0.13595211505889893
+2024-11-12 05:52:58,661 - root - INFO - Epoch: 21, train for the 1000-th batch, train loss: 0.13641928136348724
+2024-11-12 05:55:30,727 - root - INFO - Epoch: 21, train for the 1500-th batch, train loss: 0.16957442462444305
+2024-11-12 05:59:10,371 - root - INFO - Epoch: 22, train for the 500-th batch, train loss: 0.15579022467136383
+2024-11-12 06:01:39,479 - root - INFO - Epoch: 22, train for the 1000-th batch, train loss: 0.09702200442552567
+2024-11-12 06:04:10,359 - root - INFO - Epoch: 22, train for the 1500-th batch, train loss: 0.16118991374969482
+2024-11-12 06:07:46,314 - root - INFO - Epoch: 23, train for the 500-th batch, train loss: 0.1674743890762329
+2024-11-12 06:10:15,700 - root - INFO - Epoch: 23, train for the 1000-th batch, train loss: 0.12493030726909637
+2024-11-12 06:12:46,920 - root - INFO - Epoch: 23, train for the 1500-th batch, train loss: 0.17983591556549072
+2024-11-12 06:16:21,088 - root - INFO - Epoch: 24, train for the 500-th batch, train loss: 0.14961454272270203
+2024-11-12 06:18:50,557 - root - INFO - Epoch: 24, train for the 1000-th batch, train loss: 0.1523667871952057
+2024-11-12 06:21:21,698 - root - INFO - Epoch: 24, train for the 1500-th batch, train loss: 0.19164615869522095
+2024-11-12 06:24:55,580 - root - INFO - Epoch: 25, train for the 500-th batch, train loss: 0.13226665556430817
+2024-11-12 06:27:25,112 - root - INFO - Epoch: 25, train for the 1000-th batch, train loss: 0.11653273552656174
+2024-11-12 06:29:55,697 - root - INFO - Epoch: 25, train for the 1500-th batch, train loss: 0.1676729917526245
+2024-11-12 06:36:11,827 - root - INFO - Epoch: 25, learning rate: 0.0001, train loss: 0.1235
+2024-11-12 06:36:11,840 - root - INFO - train average_precision, 0.9910
+2024-11-12 06:36:11,840 - root - INFO - train roc_auc, 0.9904
+2024-11-12 06:36:11,841 - root - INFO - train MRR, 0.8649
+2024-11-12 06:36:11,842 - root - INFO - train NDGC@3, 0.9995
+2024-11-12 06:36:11,842 - root - INFO - train hit@10, 0.9226
+2024-11-12 06:36:11,843 - root - INFO - validate loss: 0.1029
+2024-11-12 06:36:11,843 - root - INFO - validate average_precision, 0.9940
+2024-11-12 06:36:11,843 - root - INFO - validate roc_auc, 0.9934
+2024-11-12 06:36:11,843 - root - INFO - validate MRR, 0.9103
+2024-11-12 06:36:11,844 - root - INFO - validate NDGC@3, 1.0000
+2024-11-12 06:36:11,844 - root - INFO - validate hit@10, 0.9485
+2024-11-12 06:36:11,844 - root - INFO - new node validate loss: 0.1749
+2024-11-12 06:36:11,844 - root - INFO - new node validate average_precision, 0.9836
+2024-11-12 06:36:11,844 - root - INFO - new node validate roc_auc, 0.9819
+2024-11-12 06:36:11,844 - root - INFO - new node validate MRR, 0.8216
+2024-11-12 06:36:11,844 - root - INFO - new node validate NDGC@3, 1.0000
+2024-11-12 06:36:11,845 - root - INFO - new node validate hit@10, 0.8705
+2024-11-12 06:36:11,845 - root - INFO - save model ./saved_models/DyGFormer/ICEWS1819/DyGFormer_seed1MiniLM/DyGFormer_seed1MiniLM_1731377933.pkl
+2024-11-12 06:38:46,011 - root - INFO - Epoch: 26, train for the 500-th batch, train loss: 0.15660172700881958
+2024-11-12 06:41:26,919 - root - INFO - Epoch: 26, train for the 1000-th batch, train loss: 0.16824741661548615
+2024-11-12 06:44:17,748 - root - INFO - Epoch: 26, train for the 1500-th batch, train loss: 0.14657773077487946
+2024-11-12 06:48:02,511 - root - INFO - Epoch: 27, train for the 500-th batch, train loss: 0.16156408190727234
+2024-11-12 06:50:31,855 - root - INFO - Epoch: 27, train for the 1000-th batch, train loss: 0.12406069040298462
+2024-11-12 06:53:02,270 - root - INFO - Epoch: 27, train for the 1500-th batch, train loss: 0.14411330223083496
+2024-11-12 06:56:39,841 - root - INFO - Epoch: 28, train for the 500-th batch, train loss: 0.10581976175308228
+2024-11-12 06:59:08,487 - root - INFO - Epoch: 28, train for the 1000-th batch, train loss: 0.1226685419678688
+2024-11-12 07:01:39,587 - root - INFO - Epoch: 28, train for the 1500-th batch, train loss: 0.16456277668476105
+2024-11-12 07:05:21,413 - root - INFO - Epoch: 29, train for the 500-th batch, train loss: 0.1339743733406067
+2024-11-12 07:08:09,413 - root - INFO - Epoch: 29, train for the 1000-th batch, train loss: 0.13109040260314941
+2024-11-12 07:10:43,046 - root - INFO - Epoch: 29, train for the 1500-th batch, train loss: 0.12390126287937164
+2024-11-12 07:14:20,467 - root - INFO - Epoch: 30, train for the 500-th batch, train loss: 0.11933261156082153
+2024-11-12 07:16:50,525 - root - INFO - Epoch: 30, train for the 1000-th batch, train loss: 0.11713963001966476
+2024-11-12 07:19:21,707 - root - INFO - Epoch: 30, train for the 1500-th batch, train loss: 0.1544245034456253
+2024-11-12 07:25:23,664 - root - INFO - Epoch: 30, learning rate: 0.0001, train loss: 0.1167
+2024-11-12 07:25:23,665 - root - INFO - train average_precision, 0.9918
+2024-11-12 07:25:23,665 - root - INFO - train roc_auc, 0.9913
+2024-11-12 07:25:23,666 - root - INFO - train MRR, 0.8759
+2024-11-12 07:25:23,666 - root - INFO - train NDGC@3, 0.9996
+2024-11-12 07:25:23,667 - root - INFO - train hit@10, 0.9287
+2024-11-12 07:25:23,667 - root - INFO - validate loss: 0.1019
+2024-11-12 07:25:23,667 - root - INFO - validate average_precision, 0.9944
+2024-11-12 07:25:23,668 - root - INFO - validate roc_auc, 0.9939
+2024-11-12 07:25:23,668 - root - INFO - validate MRR, 0.9144
+2024-11-12 07:25:23,668 - root - INFO - validate NDGC@3, 0.9997
+2024-11-12 07:25:23,668 - root - INFO - validate hit@10, 0.9524
+2024-11-12 07:25:23,668 - root - INFO - new node validate loss: 0.1785
+2024-11-12 07:25:23,669 - root - INFO - new node validate average_precision, 0.9841
+2024-11-12 07:25:23,669 - root - INFO - new node validate roc_auc, 0.9824
+2024-11-12 07:25:23,669 - root - INFO - new node validate MRR, 0.8280
+2024-11-12 07:25:23,669 - root - INFO - new node validate NDGC@3, 1.0000
+2024-11-12 07:25:23,669 - root - INFO - new node validate hit@10, 0.8753
+2024-11-12 07:30:21,896 - root - INFO - test loss: 0.0821
+2024-11-12 07:30:21,897 - root - INFO - test average_precision, 0.9980
+2024-11-12 07:30:21,897 - root - INFO - test roc_auc, 0.9978
+2024-11-12 07:30:21,897 - root - INFO - test MRR, 0.9586
+2024-11-12 07:30:21,898 - root - INFO - test NDGC@3, 1.0000
+2024-11-12 07:30:21,898 - root - INFO - test hit@10, 0.9811
+2024-11-12 07:30:21,898 - root - INFO - new node test loss: 0.1415
+2024-11-12 07:30:21,898 - root - INFO - new node test average_precision, 0.9908
+2024-11-12 07:30:21,898 - root - INFO - new node test roc_auc, 0.9898
+2024-11-12 07:30:21,898 - root - INFO - new node test MRR, 0.8754
+2024-11-12 07:30:21,899 - root - INFO - new node test NDGC@3, 1.0000
+2024-11-12 07:30:21,899 - root - INFO - new node test hit@10, 0.9237
+2024-11-12 07:32:46,562 - root - INFO - Epoch: 31, train for the 500-th batch, train loss: 0.15373584628105164
+2024-11-12 07:35:15,176 - root - INFO - Epoch: 31, train for the 1000-th batch, train loss: 0.13186419010162354
+2024-11-12 07:37:45,526 - root - INFO - Epoch: 31, train for the 1500-th batch, train loss: 0.14046911895275116
+2024-11-12 07:41:18,509 - root - INFO - Epoch: 32, train for the 500-th batch, train loss: 0.1519419252872467
+2024-11-12 07:43:46,969 - root - INFO - Epoch: 32, train for the 1000-th batch, train loss: 0.18603333830833435
+2024-11-12 07:46:26,949 - root - INFO - Epoch: 32, train for the 1500-th batch, train loss: 0.08049656450748444
+2024-11-12 07:50:13,954 - root - INFO - Epoch: 33, train for the 500-th batch, train loss: 0.13241714239120483
+2024-11-12 07:52:46,646 - root - INFO - Epoch: 33, train for the 1000-th batch, train loss: 0.17421609163284302
+2024-11-12 07:55:20,327 - root - INFO - Epoch: 33, train for the 1500-th batch, train loss: 0.12517285346984863
+2024-11-12 07:58:54,381 - root - INFO - Epoch: 34, train for the 500-th batch, train loss: 0.13470859825611115
+2024-11-12 08:01:22,911 - root - INFO - Epoch: 34, train for the 1000-th batch, train loss: 0.1530623435974121
+2024-11-12 08:03:52,906 - root - INFO - Epoch: 34, train for the 1500-th batch, train loss: 0.18066120147705078
+2024-11-12 08:07:26,416 - root - INFO - Epoch: 35, train for the 500-th batch, train loss: 0.15461525321006775
+2024-11-12 08:09:55,615 - root - INFO - Epoch: 35, train for the 1000-th batch, train loss: 0.15792149305343628
+2024-11-12 08:12:29,858 - root - INFO - Epoch: 35, train for the 1500-th batch, train loss: 0.110573910176754
+2024-11-12 08:18:39,651 - root - INFO - Epoch: 35, learning rate: 0.0001, train loss: 0.1097
+2024-11-12 08:18:39,652 - root - INFO - train average_precision, 0.9927
+2024-11-12 08:18:39,653 - root - INFO - train roc_auc, 0.9924
+2024-11-12 08:18:39,654 - root - INFO - train MRR, 0.8783
+2024-11-12 08:18:39,654 - root - INFO - train NDGC@3, 0.9999
+2024-11-12 08:18:39,655 - root - INFO - train hit@10, 0.9327
+2024-11-12 08:18:39,655 - root - INFO - validate loss: 0.1126
+2024-11-12 08:18:39,655 - root - INFO - validate average_precision, 0.9944
+2024-11-12 08:18:39,655 - root - INFO - validate roc_auc, 0.9938
+2024-11-12 08:18:39,656 - root - INFO - validate MRR, 0.9246
+2024-11-12 08:18:39,656 - root - INFO - validate NDGC@3, 0.9997
+2024-11-12 08:18:39,656 - root - INFO - validate hit@10, 0.9542
+2024-11-12 08:18:39,656 - root - INFO - new node validate loss: 0.1791
+2024-11-12 08:18:39,656 - root - INFO - new node validate average_precision, 0.9845
+2024-11-12 08:18:39,657 - root - INFO - new node validate roc_auc, 0.9828
+2024-11-12 08:18:39,657 - root - INFO - new node validate MRR, 0.8397
+2024-11-12 08:18:39,657 - root - INFO - new node validate NDGC@3, 1.0000
+2024-11-12 08:18:39,657 - root - INFO - new node validate hit@10, 0.8855
+2024-11-12 08:21:08,535 - root - INFO - Epoch: 36, train for the 500-th batch, train loss: 0.13916239142417908
+2024-11-12 08:23:37,820 - root - INFO - Epoch: 36, train for the 1000-th batch, train loss: 0.12303759902715683
+2024-11-12 08:26:08,499 - root - INFO - Epoch: 36, train for the 1500-th batch, train loss: 0.12847009301185608
+2024-11-12 08:29:42,121 - root - INFO - Epoch: 37, train for the 500-th batch, train loss: 0.13532951474189758
+2024-11-12 08:32:11,107 - root - INFO - Epoch: 37, train for the 1000-th batch, train loss: 0.14046694338321686
+2024-11-12 08:34:41,382 - root - INFO - Epoch: 37, train for the 1500-th batch, train loss: 0.09554897248744965
+2024-11-12 08:38:24,741 - root - INFO - Epoch: 38, train for the 500-th batch, train loss: 0.14212550222873688
+2024-11-12 08:41:25,257 - root - INFO - Epoch: 38, train for the 1000-th batch, train loss: 0.13746410608291626
+2024-11-12 08:43:56,450 - root - INFO - Epoch: 38, train for the 1500-th batch, train loss: 0.1300075650215149
+2024-11-12 08:47:30,604 - root - INFO - Epoch: 39, train for the 500-th batch, train loss: 0.11012078821659088
+2024-11-12 08:50:00,246 - root - INFO - Epoch: 39, train for the 1000-th batch, train loss: 0.15261059999465942
+2024-11-12 08:52:32,148 - root - INFO - Epoch: 39, train for the 1500-th batch, train loss: 0.15202277898788452
+2024-11-12 08:56:06,810 - root - INFO - Epoch: 40, train for the 500-th batch, train loss: 0.07518552243709564
+2024-11-12 08:58:36,650 - root - INFO - Epoch: 40, train for the 1000-th batch, train loss: 0.1678418070077896
+2024-11-12 09:01:08,583 - root - INFO - Epoch: 40, train for the 1500-th batch, train loss: 0.14605048298835754
+2024-11-12 09:07:13,203 - root - INFO - Epoch: 40, learning rate: 0.0001, train loss: 0.1063
+2024-11-12 09:07:13,205 - root - INFO - train average_precision, 0.9930
+2024-11-12 09:07:13,205 - root - INFO - train roc_auc, 0.9929
+2024-11-12 09:07:13,206 - root - INFO - train MRR, 0.8750
+2024-11-12 09:07:13,206 - root - INFO - train NDGC@3, 0.9998
+2024-11-12 09:07:13,207 - root - INFO - train hit@10, 0.9335
+2024-11-12 09:07:13,207 - root - INFO - validate loss: 0.1042
+2024-11-12 09:07:13,207 - root - INFO - validate average_precision, 0.9940
+2024-11-12 09:07:13,208 - root - INFO - validate roc_auc, 0.9934
+2024-11-12 09:07:13,208 - root - INFO - validate MRR, 0.9108
+2024-11-12 09:07:13,208 - root - INFO - validate NDGC@3, 1.0000
+2024-11-12 09:07:13,208 - root - INFO - validate hit@10, 0.9492
+2024-11-12 09:07:13,208 - root - INFO - new node validate loss: 0.1873
+2024-11-12 09:07:13,209 - root - INFO - new node validate average_precision, 0.9845
+2024-11-12 09:07:13,209 - root - INFO - new node validate roc_auc, 0.9828
+2024-11-12 09:07:13,209 - root - INFO - new node validate MRR, 0.8270
+2024-11-12 09:07:13,209 - root - INFO - new node validate NDGC@3, 1.0000
+2024-11-12 09:07:13,209 - root - INFO - new node validate hit@10, 0.8800
+2024-11-12 09:07:13,210 - root - INFO - save model ./saved_models/DyGFormer/ICEWS1819/DyGFormer_seed1MiniLM/DyGFormer_seed1MiniLM_1731377933.pkl
+2024-11-12 09:12:12,280 - root - INFO - test loss: 0.0731
+2024-11-12 09:12:12,281 - root - INFO - test average_precision, 0.9975
+2024-11-12 09:12:12,282 - root - INFO - test roc_auc, 0.9972
+2024-11-12 09:12:12,282 - root - INFO - test MRR, 0.9547
+2024-11-12 09:12:12,282 - root - INFO - test NDGC@3, 1.0000
+2024-11-12 09:12:12,283 - root - INFO - test hit@10, 0.9789
+2024-11-12 09:12:12,283 - root - INFO - new node test loss: 0.1366
+2024-11-12 09:12:12,283 - root - INFO - new node test average_precision, 0.9905
+2024-11-12 09:12:12,283 - root - INFO - new node test roc_auc, 0.9894
+2024-11-12 09:12:12,283 - root - INFO - new node test MRR, 0.8710
+2024-11-12 09:12:12,283 - root - INFO - new node test NDGC@3, 1.0000
+2024-11-12 09:12:12,283 - root - INFO - new node test hit@10, 0.9240
+2024-11-12 09:14:38,550 - root - INFO - Epoch: 41, train for the 500-th batch, train loss: 0.12396912276744843
+2024-11-12 09:17:08,570 - root - INFO - Epoch: 41, train for the 1000-th batch, train loss: 0.08032973110675812
+2024-11-12 09:19:41,192 - root - INFO - Epoch: 41, train for the 1500-th batch, train loss: 0.13259926438331604
+2024-11-12 09:23:15,138 - root - INFO - Epoch: 42, train for the 500-th batch, train loss: 0.13463923335075378
+2024-11-12 09:25:43,879 - root - INFO - Epoch: 42, train for the 1000-th batch, train loss: 0.1725451499223709
+2024-11-12 09:28:14,335 - root - INFO - Epoch: 42, train for the 1500-th batch, train loss: 0.16933675110340118
+2024-11-12 09:32:05,124 - root - INFO - Epoch: 43, train for the 500-th batch, train loss: 0.13856156170368195
+2024-11-12 09:34:42,829 - root - INFO - Epoch: 43, train for the 1000-th batch, train loss: 0.12116177380084991
+2024-11-12 09:37:13,428 - root - INFO - Epoch: 43, train for the 1500-th batch, train loss: 0.12352937459945679
+2024-11-12 09:40:46,275 - root - INFO - Epoch: 44, train for the 500-th batch, train loss: 0.10682331025600433
+2024-11-12 09:43:26,408 - root - INFO - Epoch: 44, train for the 1000-th batch, train loss: 0.11792241036891937
+2024-11-12 09:46:05,376 - root - INFO - Epoch: 44, train for the 1500-th batch, train loss: 0.09853155165910721
+2024-11-12 09:49:43,820 - root - INFO - Epoch: 45, train for the 500-th batch, train loss: 0.12436066567897797
+2024-11-12 09:52:13,198 - root - INFO - Epoch: 45, train for the 1000-th batch, train loss: 0.1407778114080429
+2024-11-12 09:54:44,720 - root - INFO - Epoch: 45, train for the 1500-th batch, train loss: 0.11927273869514465
+2024-11-12 10:01:02,491 - root - INFO - Epoch: 45, learning rate: 0.0001, train loss: 0.0988
+2024-11-12 10:01:02,492 - root - INFO - train average_precision, 0.9938
+2024-11-12 10:01:02,493 - root - INFO - train roc_auc, 0.9939
+2024-11-12 10:01:02,494 - root - INFO - train MRR, 0.8845
+2024-11-12 10:01:02,494 - root - INFO - train NDGC@3, 0.9997
+2024-11-12 10:01:02,495 - root - INFO - train hit@10, 0.9379
+2024-11-12 10:01:02,495 - root - INFO - validate loss: 0.1093
+2024-11-12 10:01:02,495 - root - INFO - validate average_precision, 0.9939
+2024-11-12 10:01:02,495 - root - INFO - validate roc_auc, 0.9931
+2024-11-12 10:01:02,496 - root - INFO - validate MRR, 0.9189
+2024-11-12 10:01:02,496 - root - INFO - validate NDGC@3, 1.0000
+2024-11-12 10:01:02,496 - root - INFO - validate hit@10, 0.9498
+2024-11-12 10:01:02,496 - root - INFO - new node validate loss: 0.1828
+2024-11-12 10:01:02,496 - root - INFO - new node validate average_precision, 0.9844
+2024-11-12 10:01:02,496 - root - INFO - new node validate roc_auc, 0.9825
+2024-11-12 10:01:02,497 - root - INFO - new node validate MRR, 0.8406
+2024-11-12 10:01:02,497 - root - INFO - new node validate NDGC@3, 0.9993
+2024-11-12 10:01:02,497 - root - INFO - new node validate hit@10, 0.8861
+2024-11-12 10:03:32,773 - root - INFO - Epoch: 46, train for the 500-th batch, train loss: 0.09457594156265259
+2024-11-12 10:06:19,862 - root - INFO - Epoch: 46, train for the 1000-th batch, train loss: 0.14105398952960968
+2024-11-12 10:08:51,623 - root - INFO - Epoch: 46, train for the 1500-th batch, train loss: 0.10476270318031311
+2024-11-12 10:12:37,859 - root - INFO - Epoch: 47, train for the 500-th batch, train loss: 0.10367091000080109
+2024-11-12 10:15:12,687 - root - INFO - Epoch: 47, train for the 1000-th batch, train loss: 0.06857827305793762
+2024-11-12 10:17:46,989 - root - INFO - Epoch: 47, train for the 1500-th batch, train loss: 0.13563373684883118
+2024-11-12 10:21:26,707 - root - INFO - Epoch: 48, train for the 500-th batch, train loss: 0.10719780623912811
+2024-11-12 10:23:58,388 - root - INFO - Epoch: 48, train for the 1000-th batch, train loss: 0.08950689435005188
+2024-11-12 10:26:31,600 - root - INFO - Epoch: 48, train for the 1500-th batch, train loss: 0.16318824887275696
+2024-11-12 10:30:07,715 - root - INFO - Epoch: 49, train for the 500-th batch, train loss: 0.0958271324634552
+2024-11-12 10:32:38,690 - root - INFO - Epoch: 49, train for the 1000-th batch, train loss: 0.12513135373592377
+2024-11-12 10:35:11,395 - root - INFO - Epoch: 49, train for the 1500-th batch, train loss: 0.07427582889795303
+2024-11-12 10:38:47,669 - root - INFO - Epoch: 50, train for the 500-th batch, train loss: 0.11639576405286789
+2024-11-12 10:41:18,783 - root - INFO - Epoch: 50, train for the 1000-th batch, train loss: 0.0982648953795433
+2024-11-12 10:43:52,487 - root - INFO - Epoch: 50, train for the 1500-th batch, train loss: 0.055004723370075226
+2024-11-12 10:50:11,667 - root - INFO - Epoch: 50, learning rate: 0.0001, train loss: 0.0955
+2024-11-12 10:50:11,668 - root - INFO - train average_precision, 0.9941
+2024-11-12 10:50:11,669 - root - INFO - train roc_auc, 0.9943
+2024-11-12 10:50:11,670 - root - INFO - train MRR, 0.8835
+2024-11-12 10:50:11,670 - root - INFO - train NDGC@3, 0.9997
+2024-11-12 10:50:11,670 - root - INFO - train hit@10, 0.9396
+2024-11-12 10:50:11,671 - root - INFO - validate loss: 0.1171
+2024-11-12 10:50:11,671 - root - INFO - validate average_precision, 0.9935
+2024-11-12 10:50:11,671 - root - INFO - validate roc_auc, 0.9926
+2024-11-12 10:50:11,671 - root - INFO - validate MRR, 0.9085
+2024-11-12 10:50:11,672 - root - INFO - validate NDGC@3, 1.0000
+2024-11-12 10:50:11,672 - root - INFO - validate hit@10, 0.9470
+2024-11-12 10:50:11,672 - root - INFO - new node validate loss: 0.1912
+2024-11-12 10:50:11,672 - root - INFO - new node validate average_precision, 0.9839
+2024-11-12 10:50:11,672 - root - INFO - new node validate roc_auc, 0.9818
+2024-11-12 10:50:11,672 - root - INFO - new node validate MRR, 0.8257
+2024-11-12 10:50:11,673 - root - INFO - new node validate NDGC@3, 1.0000
+2024-11-12 10:50:11,673 - root - INFO - new node validate hit@10, 0.8764
+2024-11-12 10:55:57,233 - root - INFO - test loss: 0.0973
+2024-11-12 10:55:57,234 - root - INFO - test average_precision, 0.9970
+2024-11-12 10:55:57,234 - root - INFO - test roc_auc, 0.9966
+2024-11-12 10:55:57,234 - root - INFO - test MRR, 0.9487
+2024-11-12 10:55:57,235 - root - INFO - test NDGC@3, 1.0000
+2024-11-12 10:55:57,235 - root - INFO - test hit@10, 0.9753
+2024-11-12 10:55:57,235 - root - INFO - new node test loss: 0.1575
+2024-11-12 10:55:57,235 - root - INFO - new node test average_precision, 0.9897
+2024-11-12 10:55:57,235 - root - INFO - new node test roc_auc, 0.9885
+2024-11-12 10:55:57,235 - root - INFO - new node test MRR, 0.8639
+2024-11-12 10:55:57,236 - root - INFO - new node test NDGC@3, 1.0000
+2024-11-12 10:55:57,236 - root - INFO - new node test hit@10, 0.9196
+2024-11-12 10:55:57,236 - root - INFO - load model ./saved_models/DyGFormer/ICEWS1819/DyGFormer_seed1MiniLM/DyGFormer_seed1MiniLM_1731377933.pkl
+2024-11-12 10:55:57,276 - root - INFO - get final performance on dataset ICEWS1819...
+2024-11-12 11:07:12,237 - root - INFO - validate loss: 0.1042
+2024-11-12 11:07:12,259 - root - INFO - validate average_precision, 0.9940
+2024-11-12 11:07:12,260 - root - INFO - validate roc_auc, 0.9934
+2024-11-12 11:07:12,260 - root - INFO - validate MRR, 0.9108
+2024-11-12 11:07:12,260 - root - INFO - validate NDGC@3, 1.0000
+2024-11-12 11:07:12,261 - root - INFO - validate hit@10, 0.9492
+2024-11-12 11:07:12,261 - root - INFO - new node validate loss: 0.1873
+2024-11-12 11:07:12,261 - root - INFO - new node validate average_precision, 0.9845
+2024-11-12 11:07:12,261 - root - INFO - new node validate roc_auc, 0.9828
+2024-11-12 11:07:12,261 - root - INFO - new node validate MRR, 0.8270
+2024-11-12 11:07:12,262 - root - INFO - new node validate NDGC@3, 1.0000
+2024-11-12 11:07:12,262 - root - INFO - new node validate hit@10, 0.8800
+2024-11-12 11:07:12,262 - root - INFO - test loss: 0.0731
+2024-11-12 11:07:12,262 - root - INFO - test average_precision, 0.9975
+2024-11-12 11:07:12,262 - root - INFO - test roc_auc, 0.9972
+2024-11-12 11:07:12,263 - root - INFO - test MRR, 0.9547
+2024-11-12 11:07:12,263 - root - INFO - test NDGC@3, 1.0000
+2024-11-12 11:07:12,263 - root - INFO - test hit@10, 0.9789
+2024-11-12 11:07:12,263 - root - INFO - new node test loss: 0.1366
+2024-11-12 11:07:12,263 - root - INFO - new node test average_precision, 0.9905
+2024-11-12 11:07:12,264 - root - INFO - new node test roc_auc, 0.9894
+2024-11-12 11:07:12,264 - root - INFO - new node test MRR, 0.8710
+2024-11-12 11:07:12,264 - root - INFO - new node test NDGC@3, 1.0000
+2024-11-12 11:07:12,264 - root - INFO - new node test hit@10, 0.9240
+2024-11-12 11:07:12,264 - root - INFO - Run 2 cost 31698.45 seconds.
