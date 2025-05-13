@@ -1,6 +1,6 @@
-# Codes for Submission 5864 "Unifying Text Semantics and Graph Structures for Temporal Text-attributed Graphs with Large Language Models"
+# Codes for NeurIPS 2025 Submission5864 "Unifying Text Semantics and Graph Structures for Temporal Text-attributed Graphs with Large Language Models"
 
-We sincerely thank the reviewers for their time and contributions during the review process.
+We sincerely thank all the reviewers for your time and contributions during the review process.
 
 ## Quick reproducibility check
 
@@ -10,11 +10,11 @@ To facilitate a quick verification of the reproducibility of our results during 
 
 We provide example steps to run our code on the Enron dataset.
 
-Due to the file size restriction, the dataset must be prepared before running the experiments.
-
 ---
 
 ### Step 1: Prepare the dataset.
+
+Due to the file size restriction, the dataset must be prepared before running the experiments.
 
 First, unzip the LLM-generated textual data for Enron:
 ```{bash}
@@ -22,7 +22,7 @@ cd ./DyLink_Datasets
 unzip Enron.zip
 ```
 
-Then, download the original Enron dataset from [here](https://drive.google.com/drive/folders/1QFxHIjusLOFma30gF59_hcB19Ix3QZtk), and place the following files into the ```./DyLink_Datasets/Enron/``` directory. The final directory structure should be:
+Then, download the original Enron dataset from [here](https://drive.google.com/drive/folders/1QFxHIjusLOFma30gF59_hcB19Ix3QZtk), and place the corresponding files of the Enron dataset (including ```entity_text.csv```, ```edge_list.csv```, and ```relation_text.csv```) into the ```./DyLink_Datasets/Enron/``` directory. The final directory structure should be:
 ```{bash}
 DyLink_Datasets/
 └── Enron/
@@ -31,11 +31,11 @@ DyLink_Datasets/
     ├── relation_text.csv
     └── chain_results_8.json
 ```
-### Step 2: Prepare the pretrained text embeddings.
+### Step 2: Prepare the text embeddings.
 
-Run the following commands to generate the pretrained text embeddings using MiniLM:
+Run the following commands to generate the text embeddings using MiniLM:
 
-**For raw texts in TTAGs:**
+**For raw texts:**
 ```{bash}
 cd ./CROSS
 CUDA_VISIBLE_DEVICES=0 python get_pretrained_embeddings.py
