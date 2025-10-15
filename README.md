@@ -1,6 +1,6 @@
 # NeurIPS 2025 CROSS
 
-This is the official implementation for NeurIPS Research Track Paper: **Unifying Text Semantics and Graph Structures for Temporal Text-attributed Graphs with Large Language Models**
+This is the official implementation for NeurIPS 2025 Research Track Paper: **Unifying Text Semantics and Graph Structures for Temporal Text-attributed Graphs with Large Language Models**
 
 We have provided the related resources here: [[📃 Paper](https://arxiv.org/abs/2503.14411)]  [[🎬 Video]()] 
 
