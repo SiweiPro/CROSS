@@ -24,14 +24,14 @@ if __name__ == "__main__":
         PLM = AutoModel.from_pretrained(pretrained_model_name).to(device)
         print("PLM initialized")
 
-        for data_set_name in ['Enron']: # ['GDELT', 'Enron', 'Googlemap_CT', 'ICEWS1819']:
+        for data_set_name in ['GDELT', 'Enron', 'Googlemap_CT', 'ICEWS1819']:
             print(data_set_name)
             data_set_name = '../DyLink_Datasets/' + data_set_name
             node_raw_text = {}
             temporal_chain_raw_list = []
             temporal_chain_node_text = {}
 
-            with open(data_set_name + f'/chain_results_{version}.json', 'r') as file:
+            with open(data_set_name + f'/chain_results.json', 'r') as file:
                 for line in file:
                     line = line.strip()
                     if line:
@@ -91,6 +91,6 @@ if __name__ == "__main__":
             print([len(temporal_chain_node_embeddings), hidden_size])
 
             # A dict, with key: node_id, value: (timestamps: np.array, text_embeddings: np.array)
-            pickle.dump(temporal_chain_node_embeddings, open(data_set_name + f'/temporal_chain_features_{version}.pkl', 'wb'))
+            pickle.dump(temporal_chain_node_embeddings, open(data_set_name + f'/temporal_chain_features.pkl', 'wb'))
 
             # np.save(data_set_name + f'/temporal_chain_features.pkl', temporal_chain_node_embeddings)
