@@ -21,7 +21,7 @@ if __name__ == "__main__":
         PLM = AutoModel.from_pretrained(pretrained_model_name).to(device)
         print("PLM initialized")
 
-        for data_set_name in ['Enron']: # ['GDELT', 'Enron', 'Googlemap_CT', 'ICEWS1819']:
+        for data_set_name in ['GDELT', 'Enron', 'Googlemap_CT', 'ICEWS1819']:
             print(data_set_name)
             data_set_name = '../DyLink_Datasets/' + data_set_name
             edge_list = pd.read_csv(data_set_name + '/edge_list.csv')
