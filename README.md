@@ -1,4 +1,23 @@
-# Codes and data for NeurIPS 2025 accepted paper "Unifying Text Semantics and Graph Structures for Temporal Text-attributed Graphs with Large Language Models"
+# NeurIPS 2025 CROSS
+
+This is the official implementation for NeurIPS Research Track Paper: **Unifying Text Semantics and Graph Structures for Temporal Text-attributed Graphs with Large Language Models**
+
+We have provided the related resources here: [[📃 Paper](https://arxiv.org/abs/2503.14411)]  [[🎬 Video]()] 
+
+
+> Feel free to cite this work if you find it useful to you! 😄
+```
+@inproceedings{zhang2025unifying,
+  title={Unifying Text Semantics and Graph Structures for Temporal Text-attributed Graphs with Large Language Models}, 
+  author={Siwei Zhang and Yun Xiong and Yateng Tang and Jiarong Xu and Xi Chen and Zehao Gu and Xuezheng Hao and Zian Jia and Jiawei Zhang},
+  booktitle={Proceedings of Neural Information Processing Systems},
+  year={2025}
+}
+
+```
+
+## Paper Intro
+
 
 ## How to run CROSS
 
