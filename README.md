@@ -1,35 +1,41 @@
-# Codes for NeurIPS 2025 Submission5864 "Unifying Text Semantics and Graph Structures for Temporal Text-attributed Graphs with Large Language Models"
+# Codes and data for NeurIPS 2025 accepted paper "Unifying Text Semantics and Graph Structures for Temporal Text-attributed Graphs with Large Language Models"
 
-We sincerely thank all the reviewers for your time and contributions during the review process.
-
-## Quick reproducibility check
-
-To facilitate a quick verification of the reproducibility of our results during the review process, we provide the logs of training CROSS in ```./logs/```, which contains the main experimental results and other details. Please feel free to review them.
-
-## How to run
-
-We provide example steps to run our code on the Enron dataset.
-
----
+## How to run CROSS
 
 ### Step 1: Prepare the dataset.
 
-Due to the file size restriction, the dataset must be prepared before running the experiments.
+We provide the example of the Enron dataset, and the other datasets follow a similar setup.
 
-First, unzip the LLM-generated textual data for Enron:
-```{bash}
-cd ./DyLink_Datasets
-unzip Enron.zip
-```
+First, download the original dataset from [here](https://drive.google.com/drive/folders/1QFxHIjusLOFma30gF59_hcB19Ix3QZtk) and save them into the ```./DyLink_Datasets/Enron/``` directory. Then, download the LLM-generated texts from [here](https://drive.google.com/drive/folders/1ppHXycl702xq3gzfOs54O9bm2p8vi9U6) and replace the corresponding files of the Enron dataset into the directory. 
 
-Then, download the original Enron dataset from [here](https://drive.google.com/drive/folders/1QFxHIjusLOFma30gF59_hcB19Ix3QZtk), and place the corresponding files of the Enron dataset (including ```entity_text.csv```, ```edge_list.csv```, and ```relation_text.csv```) into the ```./DyLink_Datasets/Enron/``` directory. The final directory structure should be:
+The final directory structure should be:
 ```{bash}
 DyLink_Datasets/
 └── Enron/
     ├── entity_text.csv
     ├── edge_list.csv
     ├── relation_text.csv
-    └── chain_results_8.json
+    ├── LLM_temporal_chain_data.csv
+    └── chain_results.json
+└── GDELT/
+    ├── entity_text.csv
+    ├── edge_list.csv
+    ├── relation_text.csv
+    ├── LLM_temporal_chain_data.csv
+    └── chain_results.json
+└── ICESW1819/
+    ├── entity_text.csv
+    ├── edge_list.csv
+    ├── relation_text.csv
+    ├── LLM_temporal_chain_data.csv
+    └── chain_results.json
+└── Googlemap_CT/
+    ├── entity_text.csv
+    ├── edge_list.csv
+    ├── relation_text.csv
+    ├── LLM_temporal_chain_data.csv
+    └── chain_results.json
+
 ```
 ### Step 2: Prepare the text embeddings.
 
@@ -49,7 +55,32 @@ CUDA_VISIBLE_DEVICES=0 python get_temporal_chain_embeddings.py
 To train CROSS using DyGFormer for temporal link prediction on the Enron dataset, run:
 ```{bash}
 CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name Enron --model_name DyGFormer
+
+CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name GDELT --model_name DyGFormer
+
+CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name ICESW1819 --model_name DyGFormer
+
+CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name Googlemap_CT --model_name DyGFormer
 ```
+
+## How to get the LLM-generated texts
+
+You should add your own authorization from your API account and change the url if using other llms. Please make sure your network connection is stable. In addition, our code supports multi-threaded workers, which you can adjust according to your needs.
+
+Run:
+```{bash}
+CUDA_VISIBLE_DEVICES=0 python temporal_chain_LLMs.py --model_name deepseek --dataset_name Enron --num_workers 80
+
+CUDA_VISIBLE_DEVICES=0 python temporal_chain_LLMs.py --model_name deepseek --dataset_name GDELT --num_workers 80
+
+CUDA_VISIBLE_DEVICES=0 python temporal_chain_LLMs.py --model_name deepseek --dataset_name ICESW1819 --num_workers 80
+
+CUDA_VISIBLE_DEVICES=0 python temporal_chain_LLMs.py --model_name deepseek --dataset_name Googlemap_CT --num_workers 80
+```
+
+## Training logs
+
+To facilitate a quick verification of the reproducibility of our results, we provide the logs of training CROSS in ```./logs/```, which contains the main experimental results and other details.
 
 ## Acknowledge
 
