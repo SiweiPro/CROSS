@@ -4,13 +4,16 @@ This is the official implementation for NeurIPS 2025 Research Track Paper: **Uni
 
 We have provided the related resources here: [[📃 Paper](https://arxiv.org/abs/2503.14411)]  [[🎬 Video]()] 
 
-!![Overview]<img src="imgs/method.jpg" width=70%></img>
+<img src="imgs/method.jpg" width=100%></img>
 
 We propose an LLM-based framework, CROSS, for TTAG representation learning:
 
 * We design **a temporal-aware LLM prompting paradigm** and develop *Temporal Semantics Extractor*. It enhances LLMs with dynamic reasoning capability to offer the evolving semantics of nodes’ neighborhoods, effectively detecting semantic dynamics.
 * We introduce **a modal-cohesive co-encoding architecture** and propose *Semantic-structural Co-encoder*, which jointly propagates semantic and structural information, facilitating mutual reinforcement between both modalities.
 
+We summarize the key differences between CROSS and existing methods as follows:
+
+<img src="imgs/related_work.jpg" width=100%></img>
 
 > Feel free to cite this work if you find it useful to you! 😄
 ```
@@ -28,7 +31,7 @@ We propose an LLM-based framework, CROSS, for TTAG representation learning:
 
 We provide the example of the Enron dataset, and the other datasets follow a similar setup.
 
-First, download the original dataset from [here](https://drive.google.com/drive/folders/1QFxHIjusLOFma30gF59_hcB19Ix3QZtk) and save them into the ```./DyLink_Datasets/Enron/``` directory. Then, download the LLM-generated texts from [here](https://drive.google.com/drive/folders/1ppHXycl702xq3gzfOs54O9bm2p8vi9U6) and replace the corresponding files of the Enron dataset into the directory. 
+First, download the original dataset from [here](https://drive.google.com/drive/folders/1QFxHIjusLOFma30gF59_hcB19Ix3QZtk) and save them into the ```../DyLink_Datasets``` directory. Then, download the LLM-generated texts from [here](https://drive.google.com/drive/folders/1ppHXycl702xq3gzfOs54O9bm2p8vi9U6) and replace the corresponding files of the dataset into the directory. 
 
 The final directory structure should be:
 ```{bash}
@@ -57,7 +60,7 @@ DyLink_Datasets/
     ├── relation_text.csv
     ├── LLM_temporal_chain_data.csv
     └── chain_results.json
-
+...
 ```
 ### Step 2: Prepare the text embeddings.
 
@@ -65,7 +68,6 @@ Run the following commands to generate the text embeddings using MiniLM:
 
 **For raw texts:**
 ```{bash}
-cd ./CROSS
 CUDA_VISIBLE_DEVICES=0 python get_pretrained_embeddings.py
 ```
 **For LLM-generated texts:**
@@ -74,7 +76,7 @@ CUDA_VISIBLE_DEVICES=0 python get_temporal_chain_embeddings.py
 ```
 
 ### Step 3: Run temporal link prediction.
-To train CROSS using DyGFormer for temporal link prediction on the Enron dataset, run:
+To train CROSS using DyGFormer for temporal link prediction on different datasets, run:
 ```{bash}
 CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name Enron --model_name DyGFormer
 
