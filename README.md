@@ -4,6 +4,13 @@ This is the official implementation for NeurIPS 2025 Research Track Paper: **Uni
 
 We have provided the related resources here: [[📃 Paper](https://arxiv.org/abs/2503.14411)]  [[🎬 Video]()] 
 
+!![Overview]<img src="imgs/method.jpg" width=70%></img>
+
+We propose an LLM-based framework, CROSS, for TTAG representation learning:
+
+* We design **a temporal-aware LLM prompting paradigm** and develop *Temporal Semantics Extractor*. It enhances LLMs with dynamic reasoning capability to offer the evolving semantics of nodes’ neighborhoods, effectively detecting semantic dynamics.
+* We introduce **a modal-cohesive co-encoding architecture** and propose *Semantic-structural Co-encoder*, which jointly propagates semantic and structural information, facilitating mutual reinforcement between both modalities.
+
 
 > Feel free to cite this work if you find it useful to you! 😄
 ```
@@ -13,11 +20,7 @@ We have provided the related resources here: [[📃 Paper](https://arxiv.org/abs
   booktitle={Proceedings of Neural Information Processing Systems},
   year={2025}
 }
-
 ```
-
-## Paper Intro
-TODO...
 
 ## How to run CROSS
 
