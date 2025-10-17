@@ -78,13 +78,13 @@ CUDA_VISIBLE_DEVICES=0 python get_temporal_chain_embeddings.py
 ### Step 3: Run temporal link prediction.
 To train CROSS using DyGFormer for temporal link prediction on different datasets, run:
 ```{bash}
-CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name Enron --model_name DyGFormer
+CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name Enron --use_feature MiniLM --model_name DyGFormer
 
-CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name GDELT --model_name DyGFormer
+CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name GDELT --use_feature MiniLM --model_name DyGFormer
 
-CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name ICESW1819 --model_name DyGFormer
+CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name ICESW1819 --use_feature MiniLM --model_name DyGFormer
 
-CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name Googlemap_CT --model_name DyGFormer
+CUDA_VISIBLE_DEVICES=0 python train_link_prediction.py --dataset_name Googlemap_CT --use_feature MiniLM --model_name DyGFormer
 ```
 
 ## How to get the LLM-generated texts
