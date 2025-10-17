@@ -40,27 +40,27 @@ DyLink_Datasets/
     ├── entity_text.csv
     ├── edge_list.csv
     ├── relation_text.csv
-    ├── LLM_temporal_chain_data.csv
+    ├── LLM_temporal_chain_data.pkl
     └── chain_results.json
 └── GDELT/
     ├── entity_text.csv
     ├── edge_list.csv
     ├── relation_text.csv
-    ├── LLM_temporal_chain_data.csv
+    ├── LLM_temporal_chain_data.pkl
     └── chain_results.json
 └── ICESW1819/
     ├── entity_text.csv
     ├── edge_list.csv
     ├── relation_text.csv
-    ├── LLM_temporal_chain_data.csv
+    ├── LLM_temporal_chain_data.pkl
     └── chain_results.json
 └── Googlemap_CT/
     ├── entity_text.csv
     ├── edge_list.csv
     ├── relation_text.csv
-    ├── LLM_temporal_chain_data.csv
+    ├── LLM_temporal_chain_data.pkl
     └── chain_results.json
-...
+... (for your own datasets)
 ```
 ### Step 2: Prepare the text embeddings.
 
