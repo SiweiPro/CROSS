@@ -25,6 +25,13 @@ We summarize the key differences between CROSS and existing methods as follows:
 }
 ```
 
+### 🔥 News
+- *Oct 17 2025* 🚀 We released the codes and data of CROSS! See you in San Diego!! 👋
+- *Sep 30 2025* 📝 We posted the camera ready version of our paper!
+- *Sep 18 2025* 🎉 Our paper is accepted by **NeurIPS 2025**. New version of paper will be released soon!
+- *Mar 2025* 📚 We posted the first version of our paper! 
+
+
 ## How to run CROSS
 
 ### Step 1: Prepare the dataset.
